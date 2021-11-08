@@ -1,0 +1,45 @@
+# Copyright 2021 Lumir Jasiok
+# See LICENSE file for licensing details.
+
+# For a complete list of supported options, see:
+# https://discourse.charmhub.io/t/charm-metadata-v2/3674/15
+name: etcd-operator
+maintainers:
+  - Lumir Jasiok <lumir.jasiok@alfawolf.eu>
+display-name: |
+  Etcd
+description: |
+  This charm supports deploying Etcd from the upstream binaries with resources.
+  Etcd is a highly available key/value store.
+summary: |
+  Deploy a ETCD instance.
+containers:
+  etcd:
+    resource: etcd-image
+providers:
+  db:
+    interface: etcd
+  prometheus:
+    interface: prometheus-manual
+  grafana:
+    interface: grafana-dashboard
+series:
+  - focal
+resources:
+  etcd-image-arm64:
+    type: oci-image
+    description: OCI image for etcd (jas02/etcd) for arm64
+    auto-fetch: true
+    upstream-source: 'jas02/etcd:0.1'
+  etcd-image-amd64:
+    type: oci-image
+    description: OCI image for etcd (jas02/etcd) for amd64
+    auto-fetch: true
+    upstream-source: 'jas02/etcd:0.1'
+storage:
+  data:
+   type: filesystem
+  minimum-size: 1G
+tags:
+  - database
+  - keystore
